@@ -16,14 +16,14 @@ function App() {
   const dispatch = useDispatch();
 
   const state = useSelector((state) => state);
-  console.log('state', state);
+  // console.log('state', state);
 
   // const deleteTokenAndKickUserOut = useCallback(() => {
   //   dispatch(logout());
   //   localStorage.removeItem('persist:root');
   // }, [dispatch]);
 
-  console.log('user', user);
+  // console.log('user', user);
   return (
     <div className='App'>
       <Routes>

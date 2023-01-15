@@ -4,12 +4,72 @@ import { Link } from 'react-router-dom';
 import { PUBLIC_PATHS } from '../../app/routes';
 import { PrimaryBtn } from '../../components/common/CustomButtons';
 import { BiHide, BiShowAlt } from 'react-icons/bi';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '../../firebase/config';
+import { errorToast, successToast } from '../../components/ToastHandler';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { loginSuccess } from '../../redux/features/userSlice';
+import { useDispatch } from 'react-redux';
 
 export const Register = () => {
   const [show, setShow] = useState(false);
+  const [formValues, setFormValues] = useState({ fullName: '', password: '', email: '' });
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    setFormValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const { email, fullName, password } = formValues;
+    try {
+      setLoading(true);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await addDoc(collection(db, 'users'), { fullName, email, isVerified: user.emailVerified, userId: user.uid });
+
+      dispatch(loginSuccess({ accessToken: user.accessToken, fullName, email, isVerified: user.emailVerified, userId: user.uid }));
+      successToast('Successfully Registered');
+      setLoading(false);
+    } catch (error) {
+      console.log(error.message);
+      errorToast(error.message);
+      setLoading(false);
+    }
+  };
+
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   console.log('formValues', formValues);
+  //   const { email, fullName, password } = formValues;
+  //   setLoading(true);
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       return db.collection('users').doc(userCredential.user.uid).set({ fullName });
+  //     })
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+
+  //       console.log(user);
+  //       successToast('Successfully Registered');
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       console.log(error);
+
+  //       errorToast(errorMessage);
+  //       setLoading(false);
+  //     });
+  // };
+
   return (
     <Flex h='100vh' justify='center' align='center'>
-      <VStack as='form' border='1px solid rgba(0, 0, 0, 0.06)' px='10' py='4rem'>
+      <VStack as='form' border='1px solid rgba(0, 0, 0, 0.06)' px='10' py='4rem' onSubmit={handleRegister}>
         <Img src='/images/vector.svg' alt='movie' />
         <Text as='h2' color='gray.800' fontWeight={'700'}>
           Hi, Welcome
@@ -17,11 +77,12 @@ export const Register = () => {
         <Text as='small' m='0  !important' pb='3'>
           Please register your account and start your experience
         </Text>
-        <Input placeholder='Full Name' />
-        <Input placeholder='Email' />
+        <Input placeholder='Full Name' name='fullName' required onChange={onChange} />
+        <Input placeholder='Email' type='email' name='email' required onChange={onChange} />
 
         <InputGroup size='md'>
-          <Input pr='4.5rem' type={show ? 'text' : 'password'} placeholder='Passwoard' />
+          <Input pr='4.5rem' type={show ? 'text' : 'password'} placeholder='Passwoard' required name='password' onChange={onChange} />
+          {/* {error && <Text as='small' color='crimson'>Password Must be more than 4digits </Text>} */}
           <InputRightElement width='4.5rem'>
             <Box cursor='pointer' onClick={() => setShow(!show)}>
               {show ? <BiHide /> : <BiShowAlt />}
@@ -29,7 +90,9 @@ export const Register = () => {
           </InputRightElement>
         </InputGroup>
         <VStack pt='2rem' w='100%'>
-          <PrimaryBtn w='100%'>REGISTER</PrimaryBtn>
+          <PrimaryBtn w='100%' type='submit' isLoading={loading}>
+            REGISTER
+          </PrimaryBtn>
           <Text as='small'>
             Already have an account?
             <Link to={PUBLIC_PATHS.LOGIN} style={{ color: '#B91C1C' }}>
