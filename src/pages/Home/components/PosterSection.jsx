@@ -1,4 +1,4 @@
-import { Box, HStack, Img, Stack, Text } from '@chakra-ui/react';
+import { HStack, Img, Stack, Text } from '@chakra-ui/react';
 import { PrimaryBtn } from '../../../components/common/CustomButtons';
 import { Header } from './Header';
 import { GoPlay } from 'react-icons/go';
@@ -6,7 +6,7 @@ import { sidePadding } from '../../../utils/theme';
 import useDebounce from '../../../hooks/useDebounce';
 import { useEffect, useState } from 'react';
 import { getMovieWithVideos, getTrendingMovieOfTheDay, searchMovie } from '../service';
-import { CarouselProvider, Dot, Slide, Slider } from 'pure-react-carousel';
+import { CarouselProvider, Slide, Slider } from 'pure-react-carousel';
 import { nanoid } from '@reduxjs/toolkit';
 import YouTube from 'react-youtube';
 
@@ -30,7 +30,7 @@ export const PosterSection = () => {
   }, [movieID]);
 
   useEffect(() => {
-    debouncedSearch ? searchMovie(debouncedSearch, setTrendingMovieOfTheDay) : getTrendingMovieOfTheDay(setTrendingMovieOfTheDay);
+    debouncedSearch ? searchMovie(debouncedSearch, setTrendingMovieOfTheDay) : getTrendingMovieOfTheDay(setTrendingMovieOfTheDay, setLoading);
   }, [debouncedSearch]);
 
   return loading ? (
@@ -56,8 +56,8 @@ export const PosterSection = () => {
               <Stack as='section' className='poster__section' bgImage={`${IMG_ORIGINAL}/${movie?.backdrop_path}`}>
                 <Stack px={sidePadding} justify='center' h='100%'>
                   <Stack w='360px' pt='10'>
-                    <Text as='h1' lineHeight={1.2} fontWeight='700' fontSize='48px'>
-                      {movie?.original_title || 'Title'}
+                    <Text as='h1' lineHeight={1.2} fontWeight='700' fontSize='45px'>
+                      {movie?.original_title || movie.title || 'Title'}
                     </Text>
                     <HStack gap='2rem'>
                       <HStack>
@@ -69,7 +69,7 @@ export const PosterSection = () => {
                         <Text>{parseFloat(movie?.vote_average * 10)?.toFixed(2)}%</Text>
                       </HStack>
                     </HStack>
-                    <Text py='2'>
+                    <Text py='2' noOfLines={10}>
                       {movie?.overview ||
                         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitiamolestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum'}
                     </Text>

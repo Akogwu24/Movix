@@ -7,8 +7,6 @@ import { getSingleMovie } from '../service';
 export const MovieCard = ({ movie }) => {
   const [movieData, setMovieData] = useState({});
 
-  // console.log('movieData', movieData);
-
   useEffect(() => {
     getSingleMovie(setMovieData, movie?.id);
   }, [movie.id]);

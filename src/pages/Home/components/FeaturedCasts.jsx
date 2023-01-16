@@ -11,16 +11,14 @@ import { CategoryHead } from './CategoryHead';
 
 export const FeaturedCasts = () => {
   const [featuredCasts, setFeaturedCasts] = useState([]);
+  const windowSize = useGetWindowSize();
+  const [numberOfSlidesToRender, setNumberOfSlidesToRender] = useState(1);
 
   useEffect(() => {
     getFeaturedCasts(setFeaturedCasts);
   }, []);
 
-  const windowSize = useGetWindowSize();
-  const [numberOfSlidesToRender, setNumberOfSlidesToRender] = useState(1);
-
   useEffect(() => {
-    console.log('windowSize', windowSize);
     if (windowSize <= 600) {
       setNumberOfSlidesToRender(1);
     } else if (windowSize < 740) {
