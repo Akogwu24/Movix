@@ -4,7 +4,7 @@ import { PrimaryBtn } from '../../components/common/CustomButtons';
 import { BiHide, BiShowAlt } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { PUBLIC_PATHS } from '../../app/routes';
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { errorToast, successToast } from '../../components/ToastHandler';
 import { useDispatch } from 'react-redux';

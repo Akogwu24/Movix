@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Stack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { MovieCard } from './MovieCard';
 import { RxCaretRight, RxCaretLeft } from 'react-icons/rx';
@@ -13,7 +13,6 @@ export const MovieSection = ({ category, data, isPlaying = true }) => {
   const [numberOfSlidesToRender, setNumberOfSlidesToRender] = useState(1);
 
   useEffect(() => {
-    console.log('windowSize', windowSize);
     if (windowSize <= 600) {
       setNumberOfSlidesToRender(1);
     } else if (windowSize < 740) {

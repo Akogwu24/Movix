@@ -41,32 +41,6 @@ export const Register = () => {
     }
   };
 
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-  //   console.log('formValues', formValues);
-  //   const { email, fullName, password } = formValues;
-  //   setLoading(true);
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((userCredential) => {
-  //       return db.collection('users').doc(userCredential.user.uid).set({ fullName });
-  //     })
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-
-  //       console.log(user);
-  //       successToast('Successfully Registered');
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       console.log(error);
-
-  //       errorToast(errorMessage);
-  //       setLoading(false);
-  //     });
-  // };
-
   return (
     <Flex h='100vh' justify='center' align='center'>
       <VStack as='form' border='1px solid rgba(0, 0, 0, 0.06)' px='10' py='4rem' onSubmit={handleRegister}>

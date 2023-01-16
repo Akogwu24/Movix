@@ -1,17 +1,16 @@
 import { Flex, HStack, Image, Img, Stack, Text } from '@chakra-ui/react';
 import { nanoid } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
-import { IMG_300, IMG_500 } from '../../../utils/utils';
+import { IMG_300 } from '../../../utils/utils';
 import { getSingleMovie } from '../service';
 
 export const MovieCard = ({ movie }) => {
   const [movieData, setMovieData] = useState({});
-  const [loading, setLoading] = useState(true);
 
   // console.log('movieData', movieData);
 
   useEffect(() => {
-    getSingleMovie(setMovieData, setLoading, movie?.id);
+    getSingleMovie(setMovieData, movie?.id);
   }, [movie.id]);
 
   return (

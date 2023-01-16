@@ -16,8 +16,7 @@ export const getNewArrivals = async (setNewArrivals, setLoading) => {
   }
 };
 
-export const getFeaturedMovies = async (setFeaturedMovies, setLoading) => {
-  setLoading(true);
+export const getFeaturedMovies = async (setFeaturedMovies) => {
   try {
     const { data } = await axios.get(`${baseURL}/movie/popular?api_key=${api_key}&language=en-US&page=1`);
 
@@ -25,11 +24,10 @@ export const getFeaturedMovies = async (setFeaturedMovies, setLoading) => {
   } catch (error) {
     console.log(error.response);
   } finally {
-    setLoading(false);
   }
 };
 
-export const getSingleMovie = async (setMovieData, setLoading, movieID) => {
+export const getSingleMovie = async (setMovieData, movieID) => {
   try {
     const { data } = await axios.get(`${baseURL}/movie/${movieID}?api_key=${api_key}&language=en-US`);
 
@@ -37,7 +35,6 @@ export const getSingleMovie = async (setMovieData, setLoading, movieID) => {
   } catch (error) {
     console.log(error.response);
   } finally {
-    setLoading(false);
   }
 };
 
