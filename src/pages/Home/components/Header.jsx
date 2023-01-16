@@ -1,7 +1,7 @@
 import { Circle, Flex, HStack, Img, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { sidePadding } from '../../../utils/theme';
 import { capitalizeFirstLetter } from '../../../utils/utils';
 import { logout } from '../../../redux/features/userSlice';
@@ -45,7 +45,7 @@ export const Header = ({ searchTerm, setSearchTerm }) => {
       <Menu size='xs' borderColor='none'>
         <MenuButton cursor={'pointe'}>
           <HStack>
-            <Text> Hi, {capitalizeFirstLetter(user?.fullName?.stringValue) || capitalizeFirstLetter(user?.fullName)}</Text>
+            <Text> Hi, {capitalizeFirstLetter(user?.fullName?.stringValue) || capitalizeFirstLetter(user?.fullName) || 'Name'}</Text>
             <Circle bg='themeRed' w='30px' h='30px' p='1'>
               <HiOutlineMenuAlt4 size={20} />
             </Circle>

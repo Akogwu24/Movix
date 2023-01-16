@@ -4,7 +4,6 @@ import { getFeaturedMovies } from '../service';
 
 export const FetauredMovie = () => {
   const [featuredMovies, setFeaturedMovies] = useState([]);
-  // const [loading, setLoading] = useState([]);
 
   useEffect(() => {
     getFeaturedMovies(setFeaturedMovies);

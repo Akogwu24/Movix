@@ -7,7 +7,7 @@ import { BiHide, BiShowAlt } from 'react-icons/bi';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase/config';
 import { errorToast, successToast } from '../../components/ToastHandler';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import { loginSuccess } from '../../redux/features/userSlice';
 import { useDispatch } from 'react-redux';
 

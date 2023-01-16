@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -10,20 +9,25 @@ import { Login } from './pages/auth pages/Login';
 import { Register } from './pages/auth pages/Register';
 import { Home } from './pages/Home';
 import { logout } from './redux/features/userSlice';
+import { useCallback, useEffect } from 'react';
 
 function App() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state);
-  // console.log('state', state);
+  const deleteTokenAndKickUserOut = useCallback(() => {
+    dispatch(logout());
+    localStorage.removeItem('persist:root');
+  }, [dispatch]);
 
-  // const deleteTokenAndKickUserOut = useCallback(() => {
-  //   dispatch(logout());
-  //   localStorage.removeItem('persist:root');
-  // }, [dispatch]);
+  useEffect(() => {
+    const expirationTime = JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.user)?.user?.stsTokenManager?.expirationTime || null;
 
-  // console.log('user', user);
+    if (expirationTime) {
+      new Date() >= new Date(expirationTime) && deleteTokenAndKickUserOut();
+    }
+  }, [deleteTokenAndKickUserOut]);
+
   return (
     <div className='App'>
       <Routes>

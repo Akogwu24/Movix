@@ -2,13 +2,13 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { getStoreage } from 'firebase/storage';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-  apiKey: 'AIzaSyClXw2j3f6qJs9iRDhg0YSjH9uIhArinv4',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'moviex-d001a.firebaseapp.com',
   projectId: 'moviex-d001a',
   storageBucket: 'moviex-d001a.appspot.com',
