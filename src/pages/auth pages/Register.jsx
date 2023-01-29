@@ -41,6 +41,7 @@ export const Register = () => {
     }
   };
 
+  //clever programmeer instagram clone
   // const handleSignUp = async (email, password, username) => {
   //   try {
   //     const authUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
