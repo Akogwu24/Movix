@@ -63,7 +63,7 @@ export const getMovieWithVideos = async (setMovieWithVideo, moviedID) => {
     const { data } = await axios.get(`${baseURL}/movie/${moviedID}?api_key=${api_key}&append_to_response=videos`);
 
     if (data.videos && data.videos.results) {
-      const trailer = data?.videos.results.find((vid) => vid.name === 'Official Trailer');
+      const trailer = data?.videos?.results.find((vid) => vid.name === 'Official Trailer');
       setMovieWithVideo(trailer ? trailer : data.videos.results[0]);
     }
   } catch (error) {

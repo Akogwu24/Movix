@@ -1,4 +1,4 @@
-import { HStack, Img, Stack, Text } from '@chakra-ui/react';
+import { Box, CloseButton, HStack, Img, Stack, Text } from '@chakra-ui/react';
 import { PrimaryBtn } from '../../../components/common/CustomButtons';
 import { Header } from './Header';
 import { GoPlay } from 'react-icons/go';
@@ -20,6 +20,8 @@ export const PosterSection = () => {
   const debouncedSearch = useDebounce(searchTerm, 1500);
   const [movieID, setMovieID] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  console.log('trendingMovieOfTheDay', trendingMovieOfTheDay);
 
   useEffect(() => {
     getTrendingMovieOfTheDay(setTrendingMovieOfTheDay, setLoading);
@@ -93,7 +95,7 @@ export const PosterSection = () => {
         </Box> */}
       </CarouselProvider>
       {moviesWithVideo ? (
-        <YouTube onEnd={() => setMoviesWithVideo(null)} videoId={moviesWithVideo.key || 0} className='youtube' iframeClassName='youtube__iframe' />
+        <YouTube onEnd={() => setMoviesWithVideo(null)} videoId={moviesWithVideo?.key || 0} className='youtube' iframeClassName='youtube__iframe' />
       ) : null}
     </>
   );

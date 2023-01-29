@@ -17,11 +17,11 @@ function App() {
 
   const deleteTokenAndKickUserOut = useCallback(() => {
     dispatch(logout());
-    localStorage.removeItem('persist:root');
+    localStorage.removeItem('persist:#mov#x');
   }, [dispatch]);
 
   useEffect(() => {
-    const expirationTime = JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.user)?.user?.stsTokenManager?.expirationTime || null;
+    const expirationTime = JSON.parse(JSON.parse(localStorage.getItem('persist:#mov#x'))?.user)?.user?.stsTokenManager?.expirationTime || null;
 
     if (expirationTime) {
       new Date() >= new Date(expirationTime) && deleteTokenAndKickUserOut();
