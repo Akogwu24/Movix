@@ -41,6 +41,20 @@ export const Register = () => {
     }
   };
 
+  // const handleSignUp = async (email, password, username) => {
+  //   try {
+  //     const authUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
+  //     db.collection('users').add({
+  //       owner_id: authUser.user.id,
+  //       username,
+  //       email: authUser.user.email,
+  //       profilePic: 'https://vwnvchbdcwuhidncw9uchihwjc9wh',
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <Flex h='100vh' justify='center' align='center'>
       <VStack as='form' border='1px solid rgba(0, 0, 0, 0.06)' px='10' py='4rem' onSubmit={handleRegister}>
